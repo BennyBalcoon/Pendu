@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 import {Letter} from '../letter/letter.component';
 
 export const Keyboard = (props) => (

@@ -1,5 +1,7 @@
 import React from "react";
 
+import './keyboard.styles.css';
+
 import {Letter} from '../letter/letter.component';
 
 export const Keyboard = (props) => (

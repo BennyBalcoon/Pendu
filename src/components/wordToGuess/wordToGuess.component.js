@@ -1,8 +1,8 @@
-import React from 'react';
-import Test from '../letterToGuess/letterToGuess.component';
+import React from "react";
+import LetterToGuess from "../letterToGuess/letterToGuess.component";
 
-export const WordToGuess = (props) => (
-    <div>
-     <Test feedback="hidden" />
-    </div>
+export const WordToGuess = props => (
+  <div>
+    <LetterToGuess feedback="hidden" {...props}/>
+  </div>
 );

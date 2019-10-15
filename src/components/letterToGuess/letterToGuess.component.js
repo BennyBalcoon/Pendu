@@ -22,15 +22,15 @@ console.log(wordSplitted);
 
 const HIDDEN_SYMBOL = '❓'
 
-const Test = ({feedback}) => (
+const LetterToGuess = (props) => (
     <div>
         {wordSplitted.map((letter, i) => (
             <span className="symbol" key={letter+i}>
-                {feedback === 'hidden' ? HIDDEN_SYMBOL : letter}
+                {props.feedback === 'hidden' ? HIDDEN_SYMBOL : letter}
             </span>
         ))}
     </div>
 )
 
-export default Test;
+export default LetterToGuess;
 

@@ -3,3 +3,8 @@
     padding: 10px;
     margin: 5px;
 }
+
+.symbol:hover{
+    cursor: pointer;
+    background-color: brown;
+}

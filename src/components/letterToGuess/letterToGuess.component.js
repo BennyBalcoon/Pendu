@@ -24,8 +24,8 @@ const HIDDEN_SYMBOL = '❓'
 
 const Test = ({feedback}) => (
     <div>
-        {wordSplitted.map(letter => (
-            <span className="symbol">
+        {wordSplitted.map((letter, i) => (
+            <span className="symbol" key={letter+i}>
                 {feedback === 'hidden' ? HIDDEN_SYMBOL : letter}
             </span>
         ))}

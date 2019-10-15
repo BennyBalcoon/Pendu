@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Keyboard } from "./components/keyboard/keyboard.component";
-import {WordToGuess} from "./components/wordToGuess/wordToGuess.component"
+import { WordToGuess } from "./components/wordToGuess/wordToGuess.component"
 
 
 class App extends Component {
@@ -37,22 +37,32 @@ class App extends Component {
         { name: "b", id: 25 },
         { name: "n", id: 26 }
       ],
-      words: [
-        "bonjour",
-        "parapluie",
-        "buzz",
-        "chocolat",
-        "ornythorinque",
-        "hortensia",
-        "jardinier"
-      ]
+      // words: [
+      //   "bonjour",
+      //   "parapluie",
+      //   "buzz",
+      //   "chocolat",
+      //   "ornythorinque",
+      //   "hortensia",
+      //   "jardinier"
+      // ],
+      isMatch: false,
+      revealLetter : []
     };
   }
+
+  handleClick = (letter) => {
+    const {revealLetter} = this.state;
+    revealLetter.push(letter)
+    console.log(revealLetter)
+    this.setState({revealLetter})
+  }
+
   render() {
     return (
       <div className="App">
-        <WordToGuess />
-        <Keyboard letters={this.state.letters} />
+        <WordToGuess revealLetter={this.state.revealLetter}/>
+        <Keyboard letters={this.state.letters} onClick={this.handleClick} />
       </div>
     );
   }

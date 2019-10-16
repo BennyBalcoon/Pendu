@@ -1,6 +1,6 @@
 import React from "react";
 
-import './letter.styles.css';
+import './Letter.styles.css';
 
 export const Letter = props => (
   <div className="letter-container">

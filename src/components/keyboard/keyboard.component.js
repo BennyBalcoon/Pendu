@@ -1,8 +1,8 @@
 import React from "react";
 
-import './keyboard.styles.css';
+import './Keyboard.styles.css';
 
-import {Letter} from '../letter/letter.component';
+import {Letter} from './letter/Letter.component';
 
 export const Keyboard = (props) => (
     <div className='keyboard'>

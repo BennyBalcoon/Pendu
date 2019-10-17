@@ -16,21 +16,33 @@ const words = [
     'jardinier'
 ];
 
-const wordToGuess = randomWord(words);
-const wordSplitted = wordToGuess.split("");
-console.log(wordSplitted);
+const word = randomWord(words);
+const wordSplitted = word.split("");
+const wordArray = wordSplitted.map((el) => (
+    {letter: el, hidden: true}
+))
 
 const HIDDEN_SYMBOL = '❓'
 
-const LetterToGuess = (props) => (
-    <div>
-        {wordSplitted.map((letter, i) => (
-            <span className="symbol" key={letter+i}>
-                {props.feedback === 'hidden' ? HIDDEN_SYMBOL : letter}
-            </span>
-        ))}
-    </div>
-)
+const LetterToGuess = ({revealLetter}) => {
+
+const wordToGuess = wordArray.map((el) => {
+    if (revealLetter.indexOf(el.letter) !== -1) {
+      return ({letter: el.letter, hidden: false})
+    } 
+    return (el)
+}) 
+
+    return (
+        <div>
+            {wordToGuess.map(({letter, hidden}, i) => (
+                <span className="symbol" key={letter+i}>
+                    {hidden ? HIDDEN_SYMBOL : letter}
+                </span>
+            ))}
+        </div>
+    )
+}
 
 export default LetterToGuess;
 

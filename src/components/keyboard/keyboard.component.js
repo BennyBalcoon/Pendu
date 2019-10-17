@@ -1,6 +1,6 @@
 import React from "react";
 
-import './keyboard.styles.css';
+import './Keyboard.styles.css';
 
 import {Letter} from '../letter/letter.component';
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Keyboard } from "./components/keyboard/Keyboard.component";
 import { WordToGuess } from "./components/wordToGuess/WordToGuess.component";
+import GuessCount from "./components/guessCount/GuessCount.component";
 
 class App extends Component {
   constructor() {
@@ -36,21 +37,25 @@ class App extends Component {
         { name: "b", id: 25 },
         { name: "n", id: 26 }
       ],
-      revealLetter: []
+      revealLetter: [],
+      guesses: 0
     };
   }
 
   handleClick = letter => {
-    const { revealLetter } = this.state;
+    const { revealLetter, guesses } = this.state;
+    const newGuesses =  guesses + 1;
     revealLetter.push(letter);
     
     console.log(revealLetter);
-    this.setState({ revealLetter });
+    this.setState({ revealLetter, guesses: newGuesses });
   };
 
   render() {
+    const {guesses} = this.state;
     return (
       <div className="App">
+        <GuessCount guesses={guesses} />
         <WordToGuess revealLetter={this.state.revealLetter} />
         <Keyboard letters={this.state.letters} onClick={this.handleClick} />
       </div>

@@ -2,8 +2,8 @@ import React from "react";
 
 import './letter.styles.css';
 
-export const Letter = props => (
+export const Letter = ({letter, onLetterClick}) => (
   <div className="letter-container">
-    <button className="button" onClick={() => {props.onClick(props.letter.name)}}> {props.letter.name} </button>
+    <button className="button" onClick={() => onLetterClick(letter)}> {letter} </button>
   </div>
 );

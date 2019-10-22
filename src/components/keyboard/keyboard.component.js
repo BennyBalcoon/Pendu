@@ -1,13 +1,17 @@
 import React from "react";
 
-import './Keyboard.styles.css';
+import './keyboard.styles.css';
 
 import {Letter} from '../letter/letter.component';
 
-export const Keyboard = (props) => (
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+
+const Keyboard = ({onLetterClick }) => (
     <div className='keyboard'>
-    {props.letters.map(letter => (
-          <Letter key={letter.id} letter={letter} onClick={props.onClick}/>
+    {LETTERS.split('').map(letter => (
+          <Letter key={letter} letter={letter} onLetterClick={onLetterClick}/>
         ))}
     </div>
 );
+
+export default Keyboard;

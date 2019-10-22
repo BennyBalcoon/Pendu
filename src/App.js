@@ -1,68 +1,69 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Keyboard } from './components/keyboard/keyboard.component';
-import { WordToGuess } from './components/wordToGuess/wordToGuess.component';
+import Keyboard from './components/keyboard/keyboard.component';
+import WordToGuess from './components/wordToGuess/wordToGuess.component';
+
+
+const WORDS = [
+  'bonjour',
+  'parapluie',
+  'buzz',
+  'chocolat',
+  'ornithorynque',
+  'hortensia',
+  'jardinier',
+  'contexte',
+];
+
+const LIMIT = 10;
+
+const getWord = () => WORDS[Math.floor(Math.random()*WORDS.length)];
 
 class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      letters: [
-        { name: 'a', id: 1 },
-        { name: 'z', id: 2 },
-        { name: 'e', id: 3 },
-        { name: 'r', id: 4 },
-        { name: 't', id: 5 },
-        { name: 'y', id: 6 },
-        { name: 'u', id: 7 },
-        { name: 'i', id: 8 },
-        { name: 'o', id: 9 },
-        { name: 'p', id: 10 },
-        { name: 'q', id: 11 },
-        { name: 's', id: 12 },
-        { name: 'd', id: 13 },
-        { name: 'f', id: 14 },
-        { name: 'g', id: 15 },
-        { name: 'h', id: 16 },
-        { name: 'j', id: 17 },
-        { name: 'k', id: 18 },
-        { name: 'l', id: 19 },
-        { name: 'm', id: 20 },
-        { name: 'w', id: 21 },
-        { name: 'x', id: 22 },
-        { name: 'c', id: 23 },
-        { name: 'v', id: 24 },
-        { name: 'b', id: 25 },
-        { name: 'n', id: 26 },
-      ],
-      // words: [
-      //   "bonjour",
-      //   "parapluie",
-      //   "buzz",
-      //   "chocolat",
-      //   "ornythorinque",
-      //   "hortensia",
-      //   "jardinier"
-      // ],
-      isMatch: false,
-      revealLetter: [],
-    };
+    this.state = this.getNewState();
+  }
+
+  getNewState = () => ({
+    word: getWord(),
+    revealLetters: [],
+    mistakes: 0,
+    status: 'PENDING', // PENDING, FAILED, VICTORY
+  });
+
+  handleReset = () => {
+    this.setState(this.getNewState());
   }
 
   handleClick = letter => {
-    const { revealLetter } = this.state;
-    revealLetter.push(letter);
-    console.log(revealLetter);
-    this.setState({ revealLetter });
+    const { revealLetters, word, mistakes, status } = this.state;
+    if(status !== 'PENDING' ) {
+      return;
+    }
+    if(!revealLetters.includes(letter)) {
+      // Si le word ne contient la lettre => On incrémente l'erreur
+      if(!word.split('').includes(letter)) {
+        this.setState({ mistakes: mistakes + 1, status: mistakes === 9 ? 'FAILED' : 'PENDING' });
+      }
+      const newRevealLetters = [...revealLetters, letter];
+      this.setState({ revealLetters: newRevealLetters });
+      const isVictory = word.split('').every(l => newRevealLetters.includes(l));
+      if(isVictory) this.setState({ status: 'VICTORY'});
+    }
+    // do nothing
   };
 
   render() {
-    const { revealLetter, letters } = this.state;
+    const { revealLetters, word, mistakes, status } = this.state;
     return (
       <div className="App">
-        <WordToGuess revealLetter={revealLetter} />
-        <Keyboard letters={letters} onClick={this.handleClick} />
+        {status === 'PENDING' && <span>Mistakes : {mistakes}</span>}
+        {status === 'FAILED' && <span>Perdu</span>}
+        {status === 'VICTORY' && <span>Victoire <button onClick={this.handleReset}>Reset</button></span>}
+        <WordToGuess revealLetters={revealLetters} word={word} />
+        <Keyboard onLetterClick={this.handleClick} />
       </div>
     );
   }
